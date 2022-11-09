@@ -16,7 +16,7 @@ public class Donut implements ManagerInterface {
 	
 	@Override
 	public void insertObject() {
-		// TODO Auto-generated method stub
+		
 		
 	}
 	@Override
