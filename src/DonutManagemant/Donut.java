@@ -8,20 +8,20 @@ public class Donut implements ManagerInterface {
 	private int preco;
 	private String recheio;
 	private String tamanho;
-	
-	
+	private Donut[] donut = new Donut[5];
+
 	public Donut() {
 	}
-	
-	public Donut(String nome, String Cobertura, int preco, String recheio, String tamanho) {
-		this.nome = nome;
-		this.cobertura = Cobertura;
-		this.preco = preco;
-		this.recheio = recheio;
+
+	public Donut(String nome, String cobertura, int preco, String recheio, String tamanho) {
+		this.setNome(nome);
+		this.setCobertura(cobertura);
+		this.setPreco(preco);
+		this.setRecheio(recheio);
+		this.setTamanho(tamanho);
 	}
-	
-	
-	//Setters and getters
+
+	// Setters and getters
 	public String getNome() {
 		return nome;
 	}
@@ -61,36 +61,37 @@ public class Donut implements ManagerInterface {
 	public void setTamanho(String tamanho) {
 		this.tamanho = tamanho;
 	}
-	
-	
+
 	// metodo para inserir objetos
 	@Override
 	public void insertObject() {
-		
-		
+		donut[0] = new Donut(getNome(), getCobertura(), getPreco(), getRecheio(), getTamanho());
+
 	}
 
-	//metodo para remover objetos por id
+	// metodo para remover objetos por id
 	@Override
 	public void removeObject() {
 		// TODO Auto-generated method stub
-		
+
 	}
-	
-	//metodo para atualizar um atributo por id
+
+	// metodo para atualizar um atributo por id
 	@Override
 	public void updateObject() {
 		// TODO Auto-generated method stub
-		
+
 	}
-	//metodo para retornar tudo sobre o objeto
+
+	// metodo para retornar tudo sobre o objeto
 	@Override
 	public void returnObject() {
-		// TODO Auto-generated method stub
-		
+		System.out.println(donut[0].getNome() + "\n" + donut[0].getCobertura() + "\n" + donut[0].getPreco() + "\n"
+				+ donut[0].getRecheio() + "\n" + donut[0].getTamanho());
+
 	}
-	
-	//metodo que retorna a posição do objeto no array
+
+	// metodo que retorna a posição do objeto no array
 	@Override
 	public int returnObjectIndex() {
 		// TODO Auto-generated method stub
