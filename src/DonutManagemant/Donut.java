@@ -2,7 +2,7 @@ package DonutManagemant;
 
 public class Donut implements ManagerInterface {
 
-	private int id;
+	public int id;
 	private String nome;
 	private String cobertura;
 	private int preco;
@@ -93,7 +93,7 @@ public class Donut implements ManagerInterface {
 
 	// metodo que retorna a posição do objeto no array
 	@Override
-	public int returnObjectIndex() {
+	public int getId() {
 		// TODO Auto-generated method stub
 		return 0;
 	}

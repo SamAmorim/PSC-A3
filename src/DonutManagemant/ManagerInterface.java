@@ -7,5 +7,5 @@ public interface ManagerInterface {
 	
 	public abstract void updateObject();
 	public abstract void returnObject();
-	public abstract int  returnObjectIndex();
+	public abstract int  getId();
 }
