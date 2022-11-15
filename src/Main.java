@@ -167,21 +167,21 @@ public class main extends JFrame {
 		
 		nomeInput = new JTextField();
 		nomeInput.setColumns(10);
-		nomeInput.setBounds(367, 11, 96, 19);
+		nomeInput.setBounds(367, 10, 96, 19);
 		namePanel.add(nomeInput);
 		
 		coberturaInput = new JTextField();
-		coberturaInput.setBounds(367, 5, 96, 19);
+		coberturaInput.setBounds(367, 10, 96, 19);
 		coberturaInput.setColumns(10);
 		coberturaPanel.add(coberturaInput);
 		
 		recheioInput = new JTextField();
-		recheioInput.setBounds(367, 5, 96, 19);
+		recheioInput.setBounds(367, 10, 96, 19);
 		recheioInput.setColumns(10);
 		recheioPanel.add(recheioInput);
 		
 		tamanhoInput = new JTextField();
-		tamanhoInput.setBounds(367, 5, 96, 19);
+		tamanhoInput.setBounds(367, 10, 96, 19);
 		tamanhoInput.setColumns(10);
 		tamanhoPanel.add(tamanhoInput);
 		
