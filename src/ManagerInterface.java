@@ -1,5 +1,3 @@
-package DonutManagemant;
-
 public interface ManagerInterface {
 
 	public abstract void insertObject();

@@ -1,25 +1,25 @@
 package DonutManagemant;
 
-public class Donut implements ManagerInterface {
+public class Donut {
 
 	public int id;
 	private String nome;
 	private String cobertura;
-	private int preco;
+	private String preco;
 	private String recheio;
 	private String tamanho;
-	private Donut[] donut = new Donut[5];
 
 	public Donut() {
 	}
 
-	public Donut(String nome, String cobertura, int preco, String recheio, String tamanho) {
+	public Donut(String nome, String cobertura, String preco, String recheio, String tamanho) {
 		this.setNome(nome);
 		this.setCobertura(cobertura);
 		this.setPreco(preco);
 		this.setRecheio(recheio);
 		this.setTamanho(tamanho);
 	}
+
 
 	// Setters and getters
 	public String getNome() {
@@ -38,12 +38,12 @@ public class Donut implements ManagerInterface {
 		this.cobertura = cobertura;
 	}
 
-	public int getPreco() {
+	public String getPreco() {
 		return preco;
 	}
 
-	public void setPreco(int preco) {
-		this.preco = preco;
+	public void setPreco(String preco2) {
+		this.preco = preco2;
 	}
 
 	public String getRecheio() {
@@ -61,41 +61,14 @@ public class Donut implements ManagerInterface {
 	public void setTamanho(String tamanho) {
 		this.tamanho = tamanho;
 	}
-
-	// metodo para inserir objetos
-	@Override
-	public void insertObject() {
-		donut[0] = new Donut(getNome(), getCobertura(), getPreco(), getRecheio(), getTamanho());
-
-	}
-
-	// metodo para remover objetos por id
-	@Override
-	public void removeObject() {
-		// TODO Auto-generated method stub
-
-	}
-
-	// metodo para atualizar um atributo por id
-	@Override
-	public void updateObject() {
-		// TODO Auto-generated method stub
-
-	}
-
-	// metodo para retornar tudo sobre o objeto
-	@Override
-	public void returnObject() {
-		System.out.println(donut[0].getNome() + "\n" + donut[0].getCobertura() + "\n" + donut[0].getPreco() + "\n"
-				+ donut[0].getRecheio() + "\n" + donut[0].getTamanho());
-
-	}
-
-	// metodo que retorna a posição do objeto no array
-	@Override
+	
 	public int getId() {
-		// TODO Auto-generated method stub
-		return 0;
+		return id;
 	}
+
+	public void setId(int id) {
+		this.id = id + 1;
+	}
+
 
 }
