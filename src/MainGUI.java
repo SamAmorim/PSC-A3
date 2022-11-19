@@ -19,11 +19,7 @@ import javax.swing.border.EmptyBorder;
 import DonutManagemant.Donut;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.JScrollPane;
-import java.awt.Component;
-import java.awt.Cursor;
-import java.awt.Dimension;
-import javax.swing.ScrollPaneConstants;
+import javax.swing.DropMode;
 
 public class MainGUI extends JFrame implements ManagerInterface {
 
@@ -79,6 +75,8 @@ public class MainGUI extends JFrame implements ManagerInterface {
 
 		// realocando valor do spinner
 		idSelector.setModel(new SpinnerNumberModel(0, 0, donut.length - 1, 1));
+
+		// Adicionar na tabela
 
 	}
 
@@ -138,7 +136,7 @@ public class MainGUI extends JFrame implements ManagerInterface {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(MainGUI.class.getResource("/images/_iconDonut.png")));
 		setBackground(new Color(204, 255, 204));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 549, 725);
+		setBounds(100, 100, 1074, 508);
 		contentPane = new JPanel();// painel principal
 
 		contentPane.setBackground(new Color(204, 255, 255));
@@ -285,7 +283,28 @@ public class MainGUI extends JFrame implements ManagerInterface {
 		idSelector.setModel(new SpinnerNumberModel(0, 0, 0, 1));
 		idSelector.setBounds(378, 403, 35, 35);
 		contentPane.add(idSelector);
+
+		// tabela
+		JTable donutTable = new JTable();
+		donutTable.setShowGrid(false);
+		donutTable.setVerifyInputWhenFocusTarget(false);
+		donutTable.setName("donutTable");
+		donutTable.setModel(new DefaultTableModel(new Object[][] {},
+				new String[] { "ID", "Nome", "Cobertura", "Preco", "Recheio", "Tamanho" }) {
+			Class[] columnTypes = new Class[] { String.class, String.class, String.class, String.class, Object.class,
+					String.class };
+
+			public Class getColumnClass(int columnIndex) {
+				return columnTypes[columnIndex];
+			}
+		});
+		donutTable.setBounds(522, 160, 460, 229);
+		contentPane.add(donutTable);
 		
+		JButton upButton = new JButton("Atualizar");
+		upButton.setActionCommand("Atualizar");
+		upButton.setBounds(412, 418, 92, 21);
+		contentPane.add(upButton);
 
 	}
 }

@@ -4,7 +4,7 @@ public class Donut {
 
 	public int id;
 	private String nome;
-	private String cobertura = null;
+	private String cobertura;
 	private String preco;
 	private String recheio;
 	private String tamanho;
@@ -43,8 +43,8 @@ public class Donut {
 		return preco;
 	}
 
-	public void setPreco(String preco2) {
-		this.preco = preco2;
+	public void setPreco(String preco) {
+		this.preco = preco;
 	}
 
 	public String getRecheio() {
