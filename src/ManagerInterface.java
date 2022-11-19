@@ -1,9 +1,9 @@
+
 public interface ManagerInterface {
 
-	public abstract void insertObject();
-	public abstract void removeObject();
-	
-	public abstract void updateObject();
-	public abstract void returnObject();
-	public abstract int  getId();
+	void insertObject();
+	void updateObject();
+	void returnObject();
+	void removeObject(int selectID);
+
 }

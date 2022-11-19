@@ -8,11 +8,17 @@ import java.awt.event.MouseEvent;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JSpinner;
 import javax.swing.JTextField;
+import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
+
 import DonutManagemant.Donut;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 public class MainGUI extends JFrame implements ManagerInterface {
 
@@ -22,12 +28,13 @@ public class MainGUI extends JFrame implements ManagerInterface {
 	private JTextField tamanhoInput;
 	private JTextField nomeInput;
 	int cont = 0;
-
+	static JSpinner idSelector = new JSpinner();
 	// importando o array de objetos
 	Donut[] donut = new Donut[2];
-	
-	
+
 	private JTextField precoInput;
+	private JTable table;
+	private JTextField textField;
 
 	// metodo principal
 	public static void main(String[] args) {
@@ -37,6 +44,7 @@ public class MainGUI extends JFrame implements ManagerInterface {
 				try {
 					MainGUI frame = new MainGUI();
 					frame.setVisible(true);
+
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -44,37 +52,63 @@ public class MainGUI extends JFrame implements ManagerInterface {
 
 		});
 	}
-	
+
 	// metodo de inserir objeto um a um e atribuir id
 	@Override
 	public void insertObject() {
 
 		// criando objeto
-		donut[cont] = new Donut(nomeInput.getText(), coberturaInput.getText(), precoInput.getText(), recheioInput.getText(),
-				tamanhoInput.getText());
-		//Atribuição de ID
-		donut[cont].setId(cont);
-	
-		//monstrando no console
-		System.out.println("contagem: " + cont);
-		System.out.println("ID: " + donut[cont].getId());
-		System.out.println("nome " + donut[cont].getNome() + "\ncobertura " + donut[cont].getCobertura() + "\npreco"
-				+ donut[cont].getPreco() + "\nrecheio" + donut[cont].getRecheio() + "\n");
-		
-		
-		// inserindo sequencialmente
-		cont += 1;
-		
-		
-		//redimensionando o array donut
-		
+		donut[cont] = new Donut(nomeInput.getText(), coberturaInput.getText(), precoInput.getText(),
+				recheioInput.getText(), tamanhoInput.getText());
+
+		// redimensionando um array
 		Donut[] temp = new Donut[donut.length + 1];
+		for (int i = 0; i < donut.length; i++) {
+			temp[i] = donut[i];
+		}
 		donut = temp;
+
+		// Atribuição de ID
+		for (int i = 0; i < donut.length - 1; i++) {
+			donut[cont].setId(i + 1);
 		}
 
+		// inserindo sequencialmente
+		cont += 1;
+
+		// realocando valor do spinner
+		idSelector.setModel(new SpinnerNumberModel(0, 0, donut.length - 1, 1));
+	}
+
 	// metodo de remover objeto por id
+
 	@Override
-	public void removeObject() {
+	public void removeObject(int selectID) {
+
+		Donut[] tempRemove = new Donut[donut.length - 1];
+
+		// removendo valor e redimensionando array
+		int arrayPos = selectID - 1;
+
+		for (int i = 0; i < arrayPos; i++) {
+			tempRemove[i] = donut[i];
+		}
+		for (int i = arrayPos + 1; i < donut.length; i++) {
+			tempRemove[i - 1] = donut[i];
+		}
+
+		donut = tempRemove;
+
+		// atribuindo id
+		for (int i = 0; i < donut.length - 1; i++) {
+			donut[i].setId(i + 1);
+		}
+
+		// atribuição sequencial
+		cont -= 1;
+
+		// atualizr spinner
+		idSelector.setModel(new SpinnerNumberModel(0, 0, donut.length - 1, 1));
 
 	}
 
@@ -90,29 +124,23 @@ public class MainGUI extends JFrame implements ManagerInterface {
 
 	}
 
-	// metodo para retornar id de um objeto
-	@Override
-	public int getId() {
-
-		return 0;
-	}
-
 	/**
 	 * Create the frame.
 	 */
+	@SuppressWarnings("serial")
 	public MainGUI() {
 		// titulo, icon, janela
 		setTitle("Donutlandia");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(MainGUI.class.getResource("/images/_iconDonut.png")));
 		setBackground(new Color(204, 255, 204));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 549, 668);
-		contentPane = new JPanel();
+		setBounds(100, 100, 549, 725);
+		contentPane = new JPanel();// painel principal
+
 		contentPane.setBackground(new Color(204, 255, 255));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-
 		// Atribuição dos botões de add
 		JButton addButton = new JButton("Adicionar");
 		// ação ao clicar no botao
@@ -132,10 +160,10 @@ public class MainGUI extends JFrame implements ManagerInterface {
 		RemoveButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-
+				removeObject((int) idSelector.getValue());
 			}
 		});
-		RemoveButton.setBounds(400, 401, 104, 38);
+		RemoveButton.setBounds(431, 401, 73, 21);
 		contentPane.add(RemoveButton);
 
 		// Criação dos paineis e etiquetas
@@ -231,23 +259,63 @@ public class MainGUI extends JFrame implements ManagerInterface {
 		tamanhoInput.setBounds(367, 10, 96, 19);
 		tamanhoInput.setColumns(10);
 		tamanhoPanel.add(tamanhoInput);
-		
-		JPanel tamanhoPanel_1 = new JPanel();
-		tamanhoPanel_1.setLayout(null);
-		tamanhoPanel_1.setBackground(new Color(255, 204, 102));
-		tamanhoPanel_1.setBounds(31, 353, 473, 38);
-		contentPane.add(tamanhoPanel_1);
-		
+
+		JPanel pecoPanel = new JPanel();
+		pecoPanel.setLayout(null);
+		pecoPanel.setBackground(new Color(255, 204, 102));
+		pecoPanel.setBounds(31, 353, 473, 38);
+		contentPane.add(pecoPanel);
+
 		JLabel precoLabel = new JLabel("preço");
 		precoLabel.setHorizontalAlignment(SwingConstants.LEFT);
 		precoLabel.setFont(new Font("TT Berlinerins", Font.ITALIC, 16));
 		precoLabel.setBounds(15, 11, 64, 17);
-		tamanhoPanel_1.add(precoLabel);
-		
+		pecoPanel.add(precoLabel);
+
 		precoInput = new JTextField();
 		precoInput.setColumns(10);
 		precoInput.setBounds(367, 10, 96, 19);
-		tamanhoPanel_1.add(precoInput);
+		pecoPanel.add(precoInput);
+		idSelector.setToolTipText("Selecione ID");
+
+		idSelector.setModel(new SpinnerNumberModel(0, 0, 0, 1));
+		idSelector.setBounds(399, 403, 35, 35);
+		contentPane.add(idSelector);
+
+		table = new JTable();
+		table.setEnabled(false);
+		table.setCellSelectionEnabled(true);
+		table.setColumnSelectionAllowed(true);
+		table.setToolTipText("");
+
+		table.setModel(new DefaultTableModel(new String[][] { { null, null, null, null, null, null }, },
+				new String[] { "ID", "Nome", "Cobertura", "Recheio", "Tamanho", "Pre\u00E7o" }) {
+			Class[] columnTypes = new Class[] { String.class, String.class, String.class, String.class, String.class,
+					String.class };
+
+			public Class getColumnClass(int columnIndex) {
+				return columnTypes[columnIndex];
+			}
+		});
+		table.setBounds(36, 446, 463, 16);
+		contentPane.add(table);
+		
+		JPanel pecoPanel_1 = new JPanel();
+		pecoPanel_1.setLayout(null);
+		pecoPanel_1.setBackground(new Color(255, 204, 102));
+		pecoPanel_1.setBounds(200, 401, 131, 38);
+		contentPane.add(pecoPanel_1);
+		
+		JLabel precoLabel_1 = new JLabel("preço");
+		precoLabel_1.setHorizontalAlignment(SwingConstants.LEFT);
+		precoLabel_1.setFont(new Font("TT Berlinerins", Font.ITALIC, 16));
+		precoLabel_1.setBounds(15, 11, 64, 17);
+		pecoPanel_1.add(precoLabel_1);
+		
+		textField = new JTextField();
+		textField.setColumns(10);
+		textField.setBounds(367, 10, 96, 19);
+		pecoPanel_1.add(textField);
 
 	}
 }
