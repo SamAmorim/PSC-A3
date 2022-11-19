@@ -19,6 +19,11 @@ import javax.swing.border.EmptyBorder;
 import DonutManagemant.Donut;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.JScrollPane;
+import java.awt.Component;
+import java.awt.Cursor;
+import java.awt.Dimension;
+import javax.swing.ScrollPaneConstants;
 
 public class MainGUI extends JFrame implements ManagerInterface {
 
@@ -33,7 +38,6 @@ public class MainGUI extends JFrame implements ManagerInterface {
 	Donut[] donut = new Donut[1];
 
 	private JTextField precoInput;
-	private JTable table;
 
 	// metodo principal
 	public static void main(String[] args) {
@@ -265,40 +269,6 @@ public class MainGUI extends JFrame implements ManagerInterface {
 		pecoPanel.setBackground(new Color(255, 204, 102));
 		pecoPanel.setBounds(31, 353, 473, 38);
 		contentPane.add(pecoPanel);
-
-		JLabel precoLabel = new JLabel("preço");
-		precoLabel.setHorizontalAlignment(SwingConstants.LEFT);
-		precoLabel.setFont(new Font("TT Berlinerins", Font.ITALIC, 16));
-		precoLabel.setBounds(15, 11, 64, 17);
-		pecoPanel.add(precoLabel);
-
-		precoInput = new JTextField();
-		precoInput.setColumns(10);
-		precoInput.setBounds(367, 10, 96, 19);
-		pecoPanel.add(precoInput);
-		idSelector.setToolTipText("Selecione ID");
-
-		idSelector.setModel(new SpinnerNumberModel(0, 0, 0, 1));
-		idSelector.setBounds(378, 403, 35, 35);
-		contentPane.add(idSelector);
-
-		table = new JTable();
-		table.setEnabled(false);
-		table.setCellSelectionEnabled(true);
-		table.setColumnSelectionAllowed(true);
-		table.setToolTipText("");
-
-		table.setModel(new DefaultTableModel(new String[][] { { null, null, null, null, null, null }, },
-				new String[] { "ID", "Nome", "Cobertura", "Recheio", "Tamanho", "Pre\u00E7o" }) {
-			Class[] columnTypes = new Class[] { String.class, String.class, String.class, String.class, String.class,
-					String.class };
-
-			public Class getColumnClass(int columnIndex) {
-				return columnTypes[columnIndex];
-			}
-		});
-		table.setBounds(36, 446, 463, 16);
-		contentPane.add(table);
 
 	}
 }
