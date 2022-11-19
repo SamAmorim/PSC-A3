@@ -270,5 +270,22 @@ public class MainGUI extends JFrame implements ManagerInterface {
 		pecoPanel.setBounds(31, 353, 473, 38);
 		contentPane.add(pecoPanel);
 
+		JLabel precoLabel = new JLabel("preço");
+		precoLabel.setHorizontalAlignment(SwingConstants.LEFT);
+		precoLabel.setFont(new Font("TT Berlinerins", Font.ITALIC, 16));
+		precoLabel.setBounds(15, 11, 64, 17);
+		pecoPanel.add(precoLabel);
+
+		precoInput = new JTextField();
+		precoInput.setColumns(10);
+		precoInput.setBounds(367, 10, 96, 19);
+		pecoPanel.add(precoInput);
+		idSelector.setToolTipText("Selecione ID");
+
+		idSelector.setModel(new SpinnerNumberModel(0, 0, 0, 1));
+		idSelector.setBounds(378, 403, 35, 35);
+		contentPane.add(idSelector);
+		
+
 	}
 }
