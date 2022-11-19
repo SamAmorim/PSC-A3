@@ -4,7 +4,7 @@ public class Donut {
 
 	public int id;
 	private String nome;
-	private String cobertura;
+	private String cobertura = null;
 	private String preco;
 	private String recheio;
 	private String tamanho;

@@ -30,11 +30,10 @@ public class MainGUI extends JFrame implements ManagerInterface {
 	int cont = 0;
 	static JSpinner idSelector = new JSpinner();
 	// importando o array de objetos
-	Donut[] donut = new Donut[2];
+	Donut[] donut = new Donut[1];
 
 	private JTextField precoInput;
 	private JTable table;
-	private JTextField textField;
 
 	// metodo principal
 	public static void main(String[] args) {
@@ -69,46 +68,49 @@ public class MainGUI extends JFrame implements ManagerInterface {
 		donut = temp;
 
 		// Atribuição de ID
-		for (int i = 0; i < donut.length - 1; i++) {
-			donut[cont].setId(i + 1);
-		}
+		donut[cont].setId(cont);
 
 		// inserindo sequencialmente
 		cont += 1;
+	
 
 		// realocando valor do spinner
 		idSelector.setModel(new SpinnerNumberModel(0, 0, donut.length - 1, 1));
+	
 	}
 
 	// metodo de remover objeto por id
 
 	@Override
 	public void removeObject(int selectID) {
+		
+		
+		if (selectID > 0) {
 
-		Donut[] tempRemove = new Donut[donut.length - 1];
+			Donut[] tempRemove = new Donut[donut.length - 1];
 
-		// removendo valor e redimensionando array
-		int arrayPos = selectID - 1;
+			// removendo valor e redimensionando array
+			int arrayPos = selectID - 1;
 
-		for (int i = 0; i < arrayPos; i++) {
-			tempRemove[i] = donut[i];
+			for (int i = 0; i < arrayPos; i++) {
+				tempRemove[i] = donut[i];
+			}
+			for (int i = arrayPos + 1; i < donut.length; i++) {
+				tempRemove[i - 1] = donut[i];
+			}
+
+			donut = tempRemove;
+
+			// atualizando id
+
+			// atribuição sequencial
+			cont -= 1;
+			
+			// atualizr spinner
+			idSelector.setModel(new SpinnerNumberModel(0, 0, donut.length - 1, 1));
+		}else {
+			JOptionPane.showMessageDialog(contentPane, "não há objeto com id 0");
 		}
-		for (int i = arrayPos + 1; i < donut.length; i++) {
-			tempRemove[i - 1] = donut[i];
-		}
-
-		donut = tempRemove;
-
-		// atribuindo id
-		for (int i = 0; i < donut.length - 1; i++) {
-			donut[i].setId(i + 1);
-		}
-
-		// atribuição sequencial
-		cont -= 1;
-
-		// atualizr spinner
-		idSelector.setModel(new SpinnerNumberModel(0, 0, donut.length - 1, 1));
 
 	}
 
@@ -163,7 +165,7 @@ public class MainGUI extends JFrame implements ManagerInterface {
 				removeObject((int) idSelector.getValue());
 			}
 		});
-		RemoveButton.setBounds(431, 401, 73, 21);
+		RemoveButton.setBounds(412, 401, 92, 21);
 		contentPane.add(RemoveButton);
 
 		// Criação dos paineis e etiquetas
@@ -279,7 +281,7 @@ public class MainGUI extends JFrame implements ManagerInterface {
 		idSelector.setToolTipText("Selecione ID");
 
 		idSelector.setModel(new SpinnerNumberModel(0, 0, 0, 1));
-		idSelector.setBounds(399, 403, 35, 35);
+		idSelector.setBounds(378, 403, 35, 35);
 		contentPane.add(idSelector);
 
 		table = new JTable();
@@ -299,23 +301,6 @@ public class MainGUI extends JFrame implements ManagerInterface {
 		});
 		table.setBounds(36, 446, 463, 16);
 		contentPane.add(table);
-		
-		JPanel pecoPanel_1 = new JPanel();
-		pecoPanel_1.setLayout(null);
-		pecoPanel_1.setBackground(new Color(255, 204, 102));
-		pecoPanel_1.setBounds(200, 401, 131, 38);
-		contentPane.add(pecoPanel_1);
-		
-		JLabel precoLabel_1 = new JLabel("preço");
-		precoLabel_1.setHorizontalAlignment(SwingConstants.LEFT);
-		precoLabel_1.setFont(new Font("TT Berlinerins", Font.ITALIC, 16));
-		precoLabel_1.setBounds(15, 11, 64, 17);
-		pecoPanel_1.add(precoLabel_1);
-		
-		textField = new JTextField();
-		textField.setColumns(10);
-		textField.setBounds(367, 10, 96, 19);
-		pecoPanel_1.add(textField);
 
 	}
 }
