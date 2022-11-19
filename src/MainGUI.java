@@ -72,19 +72,17 @@ public class MainGUI extends JFrame implements ManagerInterface {
 
 		// inserindo sequencialmente
 		cont += 1;
-	
 
 		// realocando valor do spinner
 		idSelector.setModel(new SpinnerNumberModel(0, 0, donut.length - 1, 1));
-	
+
 	}
 
 	// metodo de remover objeto por id
 
 	@Override
 	public void removeObject(int selectID) {
-		
-		
+
 		if (selectID > 0) {
 
 			Donut[] tempRemove = new Donut[donut.length - 1];
@@ -105,10 +103,10 @@ public class MainGUI extends JFrame implements ManagerInterface {
 
 			// atribuição sequencial
 			cont -= 1;
-			
+
 			// atualizr spinner
 			idSelector.setModel(new SpinnerNumberModel(0, 0, donut.length - 1, 1));
-		}else {
+		} else {
 			JOptionPane.showMessageDialog(contentPane, "não há objeto com id 0");
 		}
 
