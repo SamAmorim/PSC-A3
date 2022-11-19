@@ -19,7 +19,6 @@ import javax.swing.border.EmptyBorder;
 import DonutManagemant.Donut;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.DropMode;
 
 public class MainGUI extends JFrame implements ManagerInterface {
 
@@ -76,7 +75,7 @@ public class MainGUI extends JFrame implements ManagerInterface {
 		// realocando valor do spinner
 		idSelector.setModel(new SpinnerNumberModel(0, 0, donut.length - 1, 1));
 
-		// Adicionar na tabela
+		// Adicionar linha na tabela
 
 	}
 
@@ -108,6 +107,10 @@ public class MainGUI extends JFrame implements ManagerInterface {
 
 			// atualizr spinner
 			idSelector.setModel(new SpinnerNumberModel(0, 0, donut.length - 1, 1));
+			
+			
+			//remover linha da tabela 
+			
 		} else {
 			JOptionPane.showMessageDialog(contentPane, "não há objeto com id 0");
 		}
@@ -167,6 +170,20 @@ public class MainGUI extends JFrame implements ManagerInterface {
 		});
 		RemoveButton.setBounds(412, 401, 92, 21);
 		contentPane.add(RemoveButton);
+
+		// Botão de atualizar
+		JButton upButton = new JButton("Atualizar");
+		// função botão atyalizar
+		upButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				updateObject();
+
+			}
+		});
+		upButton.setActionCommand("Atualizar");
+		upButton.setBounds(412, 418, 92, 21);
+		contentPane.add(upButton);
 
 		// Criação dos paineis e etiquetas
 
@@ -239,6 +256,18 @@ public class MainGUI extends JFrame implements ManagerInterface {
 		tamanhoLabel.setHorizontalAlignment(SwingConstants.LEFT);
 		tamanhoLabel.setFont(new Font("TT Berlinerins", Font.ITALIC, 16));
 		tamanhoPanel.add(tamanhoLabel);
+		
+		JPanel pecoPanel = new JPanel();
+		pecoPanel.setLayout(null);
+		pecoPanel.setBackground(new Color(255, 204, 102));
+		pecoPanel.setBounds(31, 353, 473, 38);
+		contentPane.add(pecoPanel);
+
+		JLabel precoLabel = new JLabel("preço");
+		precoLabel.setHorizontalAlignment(SwingConstants.LEFT);
+		precoLabel.setFont(new Font("TT Berlinerins", Font.ITALIC, 16));
+		precoLabel.setBounds(15, 11, 64, 17);
+		pecoPanel.add(precoLabel);
 
 		// TextFields inputs
 
@@ -261,18 +290,6 @@ public class MainGUI extends JFrame implements ManagerInterface {
 		tamanhoInput.setBounds(367, 10, 96, 19);
 		tamanhoInput.setColumns(10);
 		tamanhoPanel.add(tamanhoInput);
-
-		JPanel pecoPanel = new JPanel();
-		pecoPanel.setLayout(null);
-		pecoPanel.setBackground(new Color(255, 204, 102));
-		pecoPanel.setBounds(31, 353, 473, 38);
-		contentPane.add(pecoPanel);
-
-		JLabel precoLabel = new JLabel("preço");
-		precoLabel.setHorizontalAlignment(SwingConstants.LEFT);
-		precoLabel.setFont(new Font("TT Berlinerins", Font.ITALIC, 16));
-		precoLabel.setBounds(15, 11, 64, 17);
-		pecoPanel.add(precoLabel);
 
 		precoInput = new JTextField();
 		precoInput.setColumns(10);
@@ -300,11 +317,6 @@ public class MainGUI extends JFrame implements ManagerInterface {
 		});
 		donutTable.setBounds(522, 160, 460, 229);
 		contentPane.add(donutTable);
-		
-		JButton upButton = new JButton("Atualizar");
-		upButton.setActionCommand("Atualizar");
-		upButton.setBounds(412, 418, 92, 21);
-		contentPane.add(upButton);
 
 	}
 }
