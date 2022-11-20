@@ -19,6 +19,7 @@ import javax.swing.border.EmptyBorder;
 import DonutManagemant.Donut;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.ImageIcon;
 
 public class MainGUI extends JFrame implements ManagerInterface {
 
@@ -191,13 +192,13 @@ public class MainGUI extends JFrame implements ManagerInterface {
 		JLabel tittleColor = new JLabel("DONUTLANDIA");
 		tittleColor.setForeground(new Color(255, 102, 102));
 		tittleColor.setFont(new Font("TT Berlinerins", Font.PLAIN, 52));
-		tittleColor.setBounds(152, 35, 238, 53);
+		tittleColor.setBounds(411, 35, 238, 53);
 		contentPane.add(tittleColor);
 
 		JLabel tittleShadow = new JLabel("DONUTLANDIA");
 		tittleShadow.setForeground(new Color(0, 0, 0));
 		tittleShadow.setFont(new Font("TT Berlinerins", Font.PLAIN, 52));
-		tittleShadow.setBounds(152, 32, 238, 53);
+		tittleShadow.setBounds(411, 32, 238, 53);
 		contentPane.add(tittleShadow);
 
 		JLabel SubTitle = new JLabel("FAÇA SEU PRÓPRIO DONUT");
@@ -205,7 +206,7 @@ public class MainGUI extends JFrame implements ManagerInterface {
 		SubTitle.setBackground(new Color(255, 153, 102));
 		SubTitle.setFont(new Font("Segoe UI", Font.BOLD | Font.ITALIC, 20));
 		SubTitle.setHorizontalAlignment(SwingConstants.CENTER);
-		SubTitle.setBounds(129, 76, 284, 38);
+		SubTitle.setBounds(388, 76, 284, 38);
 		contentPane.add(SubTitle);
 
 		// etiquetas e paineis
