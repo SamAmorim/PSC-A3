@@ -19,8 +19,10 @@ import javax.swing.border.EmptyBorder;
 import DonutManagemant.Donut;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.ImageIcon;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
+@SuppressWarnings("serial")
 public class MainGUI extends JFrame implements ManagerInterface {
 
 	private JPanel contentPane;
@@ -30,11 +32,11 @@ public class MainGUI extends JFrame implements ManagerInterface {
 	private JTextField nomeInput;
 	int cont = 0;
 	static JSpinner idSelector = new JSpinner();
+	static JTable donutTable = new JTable();
 	// importando o array de objetos
 	Donut[] donut = new Donut[1];
 
 	private JTextField precoInput;
-
 	// metodo principal
 	public static void main(String[] args) {
 		// rodando a interface
@@ -57,8 +59,8 @@ public class MainGUI extends JFrame implements ManagerInterface {
 	public void insertObject() {
 
 		// criando objeto
-		donut[cont] = new Donut(nomeInput.getText(), coberturaInput.getText(), precoInput.getText(),
-				recheioInput.getText(), tamanhoInput.getText());
+		donut[cont] = new Donut(nomeInput.getText().trim(), coberturaInput.getText().trim(), precoInput.getText().trim(),
+				recheioInput.getText().trim(), tamanhoInput.getText().trim());
 
 		// redimensionando um array
 		Donut[] temp = new Donut[donut.length + 1];
@@ -66,18 +68,31 @@ public class MainGUI extends JFrame implements ManagerInterface {
 			temp[i] = donut[i];
 		}
 		donut = temp;
-
 		// Atribuição de ID
-		donut[cont].setId(cont);
+		for (int i = 0; i < donut.length - 1; i++) {
+			donut[i].setId(i);
+		}
 
 		// inserindo sequencialmente
-		cont += 1;
 
 		// realocando valor do spinner
 		idSelector.setModel(new SpinnerNumberModel(0, 0, donut.length - 1, 1));
 
 		// Adicionar linha na tabela
 
+		DefaultTableModel val = (DefaultTableModel) donutTable.getModel();
+		val.addRow(new Object[] {donut[cont].getNome(), donut[cont].getCobertura(),
+				donut[cont].getRecheio(), donut[cont].getTamanho(), donut[cont].getPreco() });
+
+		// atualizando campos
+		nomeInput.setText("");
+		coberturaInput.setText("");
+		recheioInput.setText("");
+		tamanhoInput.setText("");
+		precoInput.setText("");
+		nomeInput.requestFocus();
+		
+		cont += 1;
 	}
 
 	// metodo de remover objeto por id
@@ -95,6 +110,7 @@ public class MainGUI extends JFrame implements ManagerInterface {
 			for (int i = 0; i < arrayPos; i++) {
 				tempRemove[i] = donut[i];
 			}
+
 			for (int i = arrayPos + 1; i < donut.length; i++) {
 				tempRemove[i - 1] = donut[i];
 			}
@@ -102,21 +118,24 @@ public class MainGUI extends JFrame implements ManagerInterface {
 			donut = tempRemove;
 
 			// atualizando id
+			for (int i = 0; i < donut.length - 1; i++) {
+				donut[i].setId(i);
+			}
 
+			//
+			((DefaultTableModel) donutTable.getModel()).removeRow(selectID - 1);;
+			
 			// atribuição sequencial
 			cont -= 1;
-
+			
 			// atualizr spinner
 			idSelector.setModel(new SpinnerNumberModel(0, 0, donut.length - 1, 1));
-			
-			
-			//remover linha da tabela 
-			
 		} else {
-			JOptionPane.showMessageDialog(contentPane, "não há objeto com id 0");
+			JOptionPane.showMessageDialog(contentPane, "não existe objeto com id 0", getTitle(), selectID, null);
 		}
-
 	}
+
+	// remover linha da tabela
 
 	// metodo de atualizar um objeto por id
 	@Override
@@ -133,7 +152,6 @@ public class MainGUI extends JFrame implements ManagerInterface {
 	/**
 	 * Create the frame.
 	 */
-	@SuppressWarnings("serial")
 	public MainGUI() {
 		// titulo, icon, janela
 		setTitle("Donutlandia");
@@ -149,10 +167,8 @@ public class MainGUI extends JFrame implements ManagerInterface {
 		contentPane.setLayout(null);
 		// Atribuição dos botões de add
 		JButton addButton = new JButton("Adicionar");
-		// ação ao clicar no botao
-		addButton.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
+		addButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 				insertObject();
 			}
 		});
@@ -162,13 +178,12 @@ public class MainGUI extends JFrame implements ManagerInterface {
 
 		// atribuição botão remove
 		JButton RemoveButton = new JButton("Remover");
-		// ação clicar no botao romove
-		RemoveButton.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
+		RemoveButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 				removeObject((int) idSelector.getValue());
 			}
 		});
+
 		RemoveButton.setBounds(412, 401, 92, 21);
 		contentPane.add(RemoveButton);
 
@@ -257,7 +272,7 @@ public class MainGUI extends JFrame implements ManagerInterface {
 		tamanhoLabel.setHorizontalAlignment(SwingConstants.LEFT);
 		tamanhoLabel.setFont(new Font("TT Berlinerins", Font.ITALIC, 16));
 		tamanhoPanel.add(tamanhoLabel);
-		
+
 		JPanel pecoPanel = new JPanel();
 		pecoPanel.setLayout(null);
 		pecoPanel.setBackground(new Color(255, 204, 102));
@@ -301,23 +316,16 @@ public class MainGUI extends JFrame implements ManagerInterface {
 		idSelector.setModel(new SpinnerNumberModel(0, 0, 0, 1));
 		idSelector.setBounds(378, 403, 35, 35);
 		contentPane.add(idSelector);
-
-		// tabela
-		JTable donutTable = new JTable();
 		donutTable.setShowGrid(false);
+		donutTable.setOpaque(false);
 		donutTable.setVerifyInputWhenFocusTarget(false);
 		donutTable.setName("donutTable");
-		donutTable.setModel(new DefaultTableModel(new Object[][] {},
-				new String[] { "ID", "Nome", "Cobertura", "Preco", "Recheio", "Tamanho" }) {
-			Class[] columnTypes = new Class[] { String.class, String.class, String.class, String.class, Object.class,
-					String.class };
 
-			public Class getColumnClass(int columnIndex) {
-				return columnTypes[columnIndex];
-			}
-		});
+		donutTable.setModel(new DefaultTableModel(new Object[][] {},
+				new String[] {"Nome", "Cobertura", "Recheio", "Tamanho", "Preco" }));
+
 		donutTable.setBounds(522, 160, 460, 229);
 		contentPane.add(donutTable);
-
+		
 	}
 }
