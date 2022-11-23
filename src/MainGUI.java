@@ -154,6 +154,7 @@ public class MainGUI extends JFrame implements ManagerInterface {
 				donutTable.setValueAt(donut[selectID - 1].getPreco(), donutTable.getSelectedRow(), 4);
 		
 				clearInputs();
+				idSelector.setValue(0);
 	}
 
 	// retornar todas as caracteristicas de um objeto por id
@@ -377,6 +378,6 @@ public class MainGUI extends JFrame implements ManagerInterface {
 				new String[] { "Nome", "Cobertura", "Recheio", "Tamanho", "Preco" }));
 		donutTable.setBounds(522, 160, 460, 229);
 		contentPane.add(donutTable);
-
+		
 	}
 }
