@@ -2,8 +2,8 @@
 public interface ManagerInterface {
 
 	void insertObject();
-	void updateObject();
-	void returnObject();
+	void returnObject(int selectID);
 	void removeObject(int selectID);
+	void updateObject(int selectID);
 
 }
