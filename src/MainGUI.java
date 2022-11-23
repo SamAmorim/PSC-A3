@@ -140,25 +140,20 @@ public class MainGUI extends JFrame implements ManagerInterface {
 	@Override
 	public void updateObject(int selectID) {
 
-		for (int i = 0; i < donut.length - 1; i++) {
+			
+				donut[selectID - 1].setNome(nomeInput.getText().trim());
+				donut[selectID - 1].setCobertura(coberturaInput.getText().trim());
+				donut[selectID - 1].setRecheio(recheioInput.getText().trim());
+				donut[selectID - 1].setTamanho(tamanhoInput.getText().trim());
+				donut[selectID - 1].setPreco(precoInput.getText().trim());
 
-			if (donut[i].getId() == selectID) {
-				donut[i].setNome(nomeInput.getText().trim());
-				donut[i].setCobertura(coberturaInput.getText().trim());
-				donut[i].setRecheio(recheioInput.getText().trim());
-				donut[i].setTamanho(tamanhoInput.getText().trim());
-				donut[i].setPreco(precoInput.getText().trim());
-
-				donutTable.setValueAt(donut[i].getNome(), donutTable.getSelectedRow(), 0);
-				donutTable.setValueAt(donut[i].getCobertura(), donutTable.getSelectedRow(), 1);
-				donutTable.setValueAt(donut[i].getRecheio(), donutTable.getSelectedRow(), 2);
-				donutTable.setValueAt(donut[i].getTamanho(), donutTable.getSelectedRow(), 3);
-				donutTable.setValueAt(donut[i].getPreco(), donutTable.getSelectedRow(), 4);
-			}
-
-		}
-		clearInputs();
-
+				donutTable.setValueAt(donut[selectID - 1].getNome(), donutTable.getSelectedRow(), 0);
+				donutTable.setValueAt(donut[selectID - 1].getCobertura(), donutTable.getSelectedRow(), 1);
+				donutTable.setValueAt(donut[selectID - 1].getRecheio(), donutTable.getSelectedRow(), 2);
+				donutTable.setValueAt(donut[selectID - 1].getTamanho(), donutTable.getSelectedRow(), 3);
+				donutTable.setValueAt(donut[selectID - 1].getPreco(), donutTable.getSelectedRow(), 4);
+		
+				clearInputs();
 	}
 
 	// retornar todas as caracteristicas de um objeto por id
@@ -188,6 +183,7 @@ public class MainGUI extends JFrame implements ManagerInterface {
 		tamanhoInput.setText("");
 		precoInput.setText("");
 		nomeInput.requestFocus();
+		donutTable.clearSelection();
 	}
 
 	/**
