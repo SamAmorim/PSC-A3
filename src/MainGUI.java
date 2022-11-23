@@ -27,19 +27,19 @@ import javax.swing.event.ChangeEvent;
 @SuppressWarnings("serial")
 public class MainGUI extends JFrame implements ManagerInterface {
 
+	private int cont = 0;
 	private JPanel contentPane;
 	private JTextField coberturaInput;
 	private JTextField recheioInput;
 	private JTextField tamanhoInput;
 	private JTextField nomeInput;
-	int cont = 0;
-	static JSpinner idSelector = new JSpinner();
-	static JTable donutTable = new JTable();
+	private JTextField precoInput;
+
+	private JSpinner idSelector = new JSpinner();
+	private JTable donutTable = new JTable();
 
 	// importando o array de objetos
 	Donut[] donut = new Donut[1];
-
-	private JTextField precoInput;
 
 	// metodo principal
 	public static void main(String[] args) {
@@ -72,13 +72,13 @@ public class MainGUI extends JFrame implements ManagerInterface {
 			temp[i] = donut[i];
 		}
 		donut = temp;
-		
+
 		// Atribuição de ID
 		for (int i = 0; i < donut.length - 1; i++) {
 			donut[i].setId(i);
 		}
-		// Adicionar linha na tabela
 
+		// Adicionar linha na tabela
 		DefaultTableModel val = (DefaultTableModel) donutTable.getModel();
 		val.addRow(new Object[] { donut[cont].getNome(), donut[cont].getCobertura(), donut[cont].getRecheio(),
 				donut[cont].getTamanho(), donut[cont].getPreco() });
@@ -88,11 +88,10 @@ public class MainGUI extends JFrame implements ManagerInterface {
 
 		// inserir sequencialmente
 		cont += 1;
-		
-		// realocando valor do spinner
-				idSelector.setModel(new SpinnerNumberModel(0, 0, donut.length - 1, 1));
-	}
 
+		// realocando valor do spinner
+		idSelector.setModel(new SpinnerNumberModel(0, 0, donut.length - 1, 1));
+	}
 
 	// metodo de remover objeto por id
 
@@ -121,10 +120,10 @@ public class MainGUI extends JFrame implements ManagerInterface {
 				donut[i].setId(i);
 			}
 
-			//removendo linha
+			// removendo linha
 			((DefaultTableModel) donutTable.getModel()).removeRow(selectID - 1);
-			
-			//limpando inputs
+
+			// limpando inputs
 			clearInputs();
 
 			// atribuição sequencial
@@ -137,27 +136,28 @@ public class MainGUI extends JFrame implements ManagerInterface {
 		}
 	}
 
-	
-
 	// metodo de atualizar um objeto por id
 	@Override
 	public void updateObject(int selectID) {
-		
-		int arrayPos = selectID - 1;
-		
-		donut[arrayPos].setNome(nomeInput.getText().trim());
-		donut[arrayPos].setCobertura(coberturaInput.getText().trim());
-		donut[arrayPos].setRecheio(recheioInput.getText().trim());
-		donut[arrayPos].setTamanho(tamanhoInput.getText().trim());
-		donut[arrayPos].setPreco(precoInput.getText().trim());
-		
-	
-		donutTable.setValueAt(donut[arrayPos].getNome(), donutTable.getSelectedRow(), 0);
-		donutTable.setValueAt(donut[arrayPos].getCobertura(), donutTable.getSelectedRow(), 1);
-		donutTable.setValueAt(donut[arrayPos].getRecheio(), donutTable.getSelectedRow(), 2);
-		donutTable.setValueAt(donut[arrayPos].getTamanho(), donutTable.getSelectedRow(), 3);
-		donutTable.setValueAt(donut[arrayPos].getPreco(), donutTable.getSelectedRow(), 4);
 
+		for (int i = 0; i < donut.length - 1; i++) {
+
+			if (donut[i].getId() == selectID) {
+				donut[i].setNome(nomeInput.getText().trim());
+				donut[i].setCobertura(coberturaInput.getText().trim());
+				donut[i].setRecheio(recheioInput.getText().trim());
+				donut[i].setTamanho(tamanhoInput.getText().trim());
+				donut[i].setPreco(precoInput.getText().trim());
+
+				donutTable.setValueAt(donut[i].getNome(), donutTable.getSelectedRow(), 0);
+				donutTable.setValueAt(donut[i].getCobertura(), donutTable.getSelectedRow(), 1);
+				donutTable.setValueAt(donut[i].getRecheio(), donutTable.getSelectedRow(), 2);
+				donutTable.setValueAt(donut[i].getTamanho(), donutTable.getSelectedRow(), 3);
+				donutTable.setValueAt(donut[i].getPreco(), donutTable.getSelectedRow(), 4);
+			}
+
+		}
+		clearInputs();
 
 	}
 
@@ -187,13 +187,14 @@ public class MainGUI extends JFrame implements ManagerInterface {
 		recheioInput.setText("");
 		tamanhoInput.setText("");
 		precoInput.setText("");
-		nomeInput.requestFocus();		
+		nomeInput.requestFocus();
 	}
+
 	/**
 	 * Create the frame.
 	 */
 	public MainGUI() {
-		// titulo, icon, janela
+		// title, icon, window
 		setTitle("Donutlandia");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(MainGUI.class.getResource("/images/_iconDonut.png")));
 		setBackground(new Color(204, 255, 204));
