@@ -127,11 +127,10 @@ public class MainGUI extends JFrame implements ManagerInterface {
 			// limpando inputs
 			clearInputs();
 
-			// atribuição sequencial
-			cont -= 1;
-
 			// atualizr spinner
 			idSelector.setModel(new SpinnerNumberModel(0, 0, donut.length - 1, 1));
+			idSelector.setValue(donut[cont].getId());
+
 		} else {
 			JOptionPane.showMessageDialog(contentPane, "não existe objeto com id 0", getTitle(), selectID, null);
 		}
@@ -161,16 +160,14 @@ public class MainGUI extends JFrame implements ManagerInterface {
 	@Override
 	public void returnObject(int selectID) {
 
-		int arrayPos = selectID - 1;
-
 		if (selectID != 0) {
 
-			nomeInput.setText(donut[arrayPos].getNome());
-			coberturaInput.setText(donut[arrayPos].getCobertura());
-			coberturaInput.setText(donut[arrayPos].getCobertura());
-			recheioInput.setText(donut[arrayPos].getRecheio());
-			tamanhoInput.setText(donut[arrayPos].getTamanho());
-			precoInput.setText(donut[arrayPos].getPreco());
+			nomeInput.setText(donut[selectID - 1].getNome());
+			coberturaInput.setText(donut[selectID - 1].getCobertura());
+			coberturaInput.setText(donut[selectID - 1].getCobertura());
+			recheioInput.setText(donut[selectID - 1].getRecheio());
+			tamanhoInput.setText(donut[selectID - 1].getTamanho());
+			precoInput.setText(donut[selectID - 1].getPreco());
 
 		} else {
 			clearInputs();
@@ -376,19 +373,19 @@ public class MainGUI extends JFrame implements ManagerInterface {
 		idSelector.setModel(new SpinnerNumberModel(0, 0, 0, 1));
 		idSelector.setBounds(378, 403, 35, 35);
 		contentPane.add(idSelector);
-		
+
 		JPanel ID = new JPanel();
 		ID.setLayout(null);
 		ID.setBackground(new Color(255, 204, 102));
 		ID.setBounds(335, 401, 170, 38);
 		contentPane.add(ID);
-		
+
 		JLabel idLabel = new JLabel("ID:");
 		idLabel.setHorizontalAlignment(SwingConstants.LEFT);
 		idLabel.setFont(new Font("TT Berlinerins", Font.ITALIC, 16));
 		idLabel.setBounds(4, 10, 24, 18);
 		ID.add(idLabel);
-		
+
 		JPanel tablePanel = new JPanel();
 		tablePanel.setLayout(null);
 		tablePanel.setBackground(new Color(255, 204, 102));
@@ -401,9 +398,9 @@ public class MainGUI extends JFrame implements ManagerInterface {
 		donutTable.setOpaque(false);
 		donutTable.setVerifyInputWhenFocusTarget(false);
 		donutTable.setName("donutTable");
-		
-				donutTable.setModel(new DefaultTableModel(new Object[][] {},
-						new String[] { "Nome", "Cobertura", "Recheio", "Tamanho", "Preco" }));
+
+		donutTable.setModel(new DefaultTableModel(new Object[][] {},
+				new String[] { "Nome", "Cobertura", "Recheio", "Tamanho", "Preco" }));
 
 	}
 }
