@@ -91,6 +91,7 @@ public class MainGUI extends JFrame implements ManagerInterface {
 
 		// realocando valor do spinner
 		idSelector.setModel(new SpinnerNumberModel(0, 0, donut.length - 1, 1));
+
 	}
 
 	// metodo de remover objeto por id
@@ -140,21 +141,20 @@ public class MainGUI extends JFrame implements ManagerInterface {
 	@Override
 	public void updateObject(int selectID) {
 
-			
-				donut[selectID - 1].setNome(nomeInput.getText().trim());
-				donut[selectID - 1].setCobertura(coberturaInput.getText().trim());
-				donut[selectID - 1].setRecheio(recheioInput.getText().trim());
-				donut[selectID - 1].setTamanho(tamanhoInput.getText().trim());
-				donut[selectID - 1].setPreco(precoInput.getText().trim());
+		donut[selectID - 1].setNome(nomeInput.getText().trim());
+		donut[selectID - 1].setCobertura(coberturaInput.getText().trim());
+		donut[selectID - 1].setRecheio(recheioInput.getText().trim());
+		donut[selectID - 1].setTamanho(tamanhoInput.getText().trim());
+		donut[selectID - 1].setPreco(precoInput.getText().trim());
 
-				donutTable.setValueAt(donut[selectID - 1].getNome(), donutTable.getSelectedRow(), 0);
-				donutTable.setValueAt(donut[selectID - 1].getCobertura(), donutTable.getSelectedRow(), 1);
-				donutTable.setValueAt(donut[selectID - 1].getRecheio(), donutTable.getSelectedRow(), 2);
-				donutTable.setValueAt(donut[selectID - 1].getTamanho(), donutTable.getSelectedRow(), 3);
-				donutTable.setValueAt(donut[selectID - 1].getPreco(), donutTable.getSelectedRow(), 4);
-		
-				clearInputs();
-				idSelector.setValue(0);
+		donutTable.setValueAt(donut[selectID - 1].getNome(), donutTable.getSelectedRow(), 0);
+		donutTable.setValueAt(donut[selectID - 1].getCobertura(), donutTable.getSelectedRow(), 1);
+		donutTable.setValueAt(donut[selectID - 1].getRecheio(), donutTable.getSelectedRow(), 2);
+		donutTable.setValueAt(donut[selectID - 1].getTamanho(), donutTable.getSelectedRow(), 3);
+		donutTable.setValueAt(donut[selectID - 1].getPreco(), donutTable.getSelectedRow(), 4);
+
+		clearInputs();
+		idSelector.setValue(0);
 	}
 
 	// retornar todas as caracteristicas de um objeto por id
@@ -191,6 +191,7 @@ public class MainGUI extends JFrame implements ManagerInterface {
 	 * Create the frame.
 	 */
 	public MainGUI() {
+
 		// title, icon, window
 		setTitle("Donutlandia");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(MainGUI.class.getResource("/images/_iconDonut.png")));
@@ -270,7 +271,7 @@ public class MainGUI extends JFrame implements ManagerInterface {
 		namePanel.setLayout(null);
 
 		JLabel nomeLabel = new JLabel("Nome");
-		nomeLabel.setBounds(15, 10, 37, 17);
+		nomeLabel.setBounds(15, 10, 85, 17);
 		nomeLabel.setFont(new Font("TT Berlinerins", Font.ITALIC, 16));
 		nomeLabel.setHorizontalAlignment(SwingConstants.LEFT);
 		namePanel.add(nomeLabel);
@@ -282,7 +283,7 @@ public class MainGUI extends JFrame implements ManagerInterface {
 		coberturaPanel.setLayout(null);
 
 		JLabel coberturaLabel = new JLabel("Cobertura");
-		coberturaLabel.setBounds(15, 11, 72, 17);
+		coberturaLabel.setBounds(15, 11, 121, 17);
 		coberturaLabel.setHorizontalAlignment(SwingConstants.LEFT);
 		coberturaLabel.setFont(new Font("TT Berlinerins", Font.ITALIC, 16));
 		coberturaPanel.add(coberturaLabel);
@@ -294,7 +295,7 @@ public class MainGUI extends JFrame implements ManagerInterface {
 		recheioPanel.setLayout(null);
 
 		JLabel recheioLabel = new JLabel("Recheio");
-		recheioLabel.setBounds(15, 11, 56, 17);
+		recheioLabel.setBounds(15, 11, 104, 17);
 		recheioLabel.setHorizontalAlignment(SwingConstants.LEFT);
 		recheioLabel.setFont(new Font("TT Berlinerins", Font.ITALIC, 16));
 		recheioPanel.add(recheioLabel);
@@ -306,7 +307,7 @@ public class MainGUI extends JFrame implements ManagerInterface {
 		tamanhoPanel.setLayout(null);
 
 		JLabel tamanhoLabel = new JLabel("Tamanho");
-		tamanhoLabel.setBounds(15, 11, 64, 17);
+		tamanhoLabel.setBounds(15, 11, 96, 17);
 		tamanhoLabel.setHorizontalAlignment(SwingConstants.LEFT);
 		tamanhoLabel.setFont(new Font("TT Berlinerins", Font.ITALIC, 16));
 		tamanhoPanel.add(tamanhoLabel);
@@ -326,29 +327,35 @@ public class MainGUI extends JFrame implements ManagerInterface {
 		// TextFields inputs
 
 		nomeInput = new JTextField();
+		nomeInput.setToolTipText("Digite o nome do seu donut");
 		nomeInput.setColumns(10);
 		nomeInput.setBounds(367, 10, 96, 19);
 		namePanel.add(nomeInput);
 
 		coberturaInput = new JTextField();
+		coberturaInput.setToolTipText("Digite a cobertura do seu donut");
 		coberturaInput.setBounds(367, 10, 96, 19);
 		coberturaInput.setColumns(10);
 		coberturaPanel.add(coberturaInput);
 
 		recheioInput = new JTextField();
+		recheioInput.setToolTipText("Digite qual o recheio do seu donut");
 		recheioInput.setBounds(367, 10, 96, 19);
 		recheioInput.setColumns(10);
 		recheioPanel.add(recheioInput);
 
 		tamanhoInput = new JTextField();
+		tamanhoInput.setToolTipText("Digite o tamanho do seu donut");
 		tamanhoInput.setBounds(367, 10, 96, 19);
 		tamanhoInput.setColumns(10);
 		tamanhoPanel.add(tamanhoInput);
 
 		precoInput = new JTextField();
+		precoInput.setToolTipText("Digite o preço do seu donut");
 		precoInput.setColumns(10);
 		precoInput.setBounds(367, 10, 96, 19);
 		pecoPanel.add(precoInput);
+		idSelector.setToolTipText("Entre com o ID");
 
 		// metodo que vai chamar o atualizar
 		idSelector.addChangeListener(new ChangeListener() {
@@ -369,15 +376,34 @@ public class MainGUI extends JFrame implements ManagerInterface {
 		idSelector.setModel(new SpinnerNumberModel(0, 0, 0, 1));
 		idSelector.setBounds(378, 403, 35, 35);
 		contentPane.add(idSelector);
+		
+		JPanel ID = new JPanel();
+		ID.setLayout(null);
+		ID.setBackground(new Color(255, 204, 102));
+		ID.setBounds(335, 401, 170, 38);
+		contentPane.add(ID);
+		
+		JLabel idLabel = new JLabel("ID:");
+		idLabel.setHorizontalAlignment(SwingConstants.LEFT);
+		idLabel.setFont(new Font("TT Berlinerins", Font.ITALIC, 16));
+		idLabel.setBounds(4, 10, 24, 18);
+		ID.add(idLabel);
+		
+		JPanel tablePanel = new JPanel();
+		tablePanel.setLayout(null);
+		tablePanel.setBackground(new Color(255, 204, 102));
+		tablePanel.setBounds(523, 162, 505, 229);
+		contentPane.add(tablePanel);
+		donutTable.setEnabled(false);
+		donutTable.setBounds(0, 0, 505, 229);
+		tablePanel.add(donutTable);
 		donutTable.setShowGrid(false);
 		donutTable.setOpaque(false);
 		donutTable.setVerifyInputWhenFocusTarget(false);
 		donutTable.setName("donutTable");
-
-		donutTable.setModel(new DefaultTableModel(new Object[][] {},
-				new String[] { "Nome", "Cobertura", "Recheio", "Tamanho", "Preco" }));
-		donutTable.setBounds(522, 160, 460, 229);
-		contentPane.add(donutTable);
 		
+				donutTable.setModel(new DefaultTableModel(new Object[][] {},
+						new String[] { "Nome", "Cobertura", "Recheio", "Tamanho", "Preco" }));
+
 	}
 }
