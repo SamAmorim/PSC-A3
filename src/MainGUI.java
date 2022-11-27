@@ -220,7 +220,7 @@ public class MainGUI extends JFrame implements ManagerInterface {
 		contentPane.setBackground(new Color(204, 255, 255));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-		contentPane.setLayout(null);
+		contentPane.setLayout(null); 
 		
 		
 		// Atribuição dos botões de add
