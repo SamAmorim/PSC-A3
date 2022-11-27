@@ -58,6 +58,8 @@ public class MainGUI extends JFrame implements ManagerInterface {
 		});
 	}
 
+	//metodos principais
+	
 	// metodo de inserir objeto um a um e atribuir id
 	@Override
 	public void insertObject() {
@@ -74,9 +76,7 @@ public class MainGUI extends JFrame implements ManagerInterface {
 		donut = temp;
 
 		// Atribuição de ID
-		for (int i = 0; i < donut.length - 1; i++) {
-			donut[i].setId(i);
-		}
+		assignID();
 
 		// Adicionar linha na tabela
 		DefaultTableModel val = (DefaultTableModel) donutTable.getModel();
@@ -84,6 +84,7 @@ public class MainGUI extends JFrame implements ManagerInterface {
 				donut[cont].getTamanho(), donut[cont].getPreco() });
 
 		// atualizando campos
+		showValuesOfArray();
 		clearInputs();
 
 		// inserir sequencialmente
@@ -93,9 +94,7 @@ public class MainGUI extends JFrame implements ManagerInterface {
 		idSelector.setModel(new SpinnerNumberModel(0, 0, donut.length - 1, 1));
 
 	}
-
 	// metodo de remover objeto por id
-
 	@Override
 	public void removeObject(int selectID) {
 
@@ -117,45 +116,34 @@ public class MainGUI extends JFrame implements ManagerInterface {
 			donut = tempRemove;
 
 			// atualizando id
-			for (int i = 0; i < donut.length - 1; i++) {
-				donut[i].setId(i);
-			}
+
+			assignID();
 
 			// removendo linha
 			((DefaultTableModel) donutTable.getModel()).removeRow(selectID - 1);
 
 			// limpando inputs
+			showValuesOfArray();
 			clearInputs();
 
 			// atualizr spinner
 			idSelector.setModel(new SpinnerNumberModel(0, 0, donut.length - 1, 1));
-			idSelector.setValue(donut[cont].getId());
 
 		} else {
 			JOptionPane.showMessageDialog(contentPane, "não existe objeto com id 0", getTitle(), selectID, null);
 		}
 	}
-
 	// metodo de atualizar um objeto por id
 	@Override
 	public void updateObject(int selectID) {
 
-		donut[selectID - 1].setNome(nomeInput.getText().trim());
-		donut[selectID - 1].setCobertura(coberturaInput.getText().trim());
-		donut[selectID - 1].setRecheio(recheioInput.getText().trim());
-		donut[selectID - 1].setTamanho(tamanhoInput.getText().trim());
-		donut[selectID - 1].setPreco(precoInput.getText().trim());
-
-		donutTable.setValueAt(donut[selectID - 1].getNome(), donutTable.getSelectedRow(), 0);
-		donutTable.setValueAt(donut[selectID - 1].getCobertura(), donutTable.getSelectedRow(), 1);
-		donutTable.setValueAt(donut[selectID - 1].getRecheio(), donutTable.getSelectedRow(), 2);
-		donutTable.setValueAt(donut[selectID - 1].getTamanho(), donutTable.getSelectedRow(), 3);
-		donutTable.setValueAt(donut[selectID - 1].getPreco(), donutTable.getSelectedRow(), 4);
-
+		setInputOnArray(selectID - 1);
+		drawUpdate(selectID - 1);
+		showValuesOfArray();
 		clearInputs();
+		
 		idSelector.setValue(0);
 	}
-
 	// retornar todas as caracteristicas de um objeto por id
 	@Override
 	public void returnObject(int selectID) {
@@ -163,7 +151,6 @@ public class MainGUI extends JFrame implements ManagerInterface {
 		if (selectID != 0) {
 
 			nomeInput.setText(donut[selectID - 1].getNome());
-			coberturaInput.setText(donut[selectID - 1].getCobertura());
 			coberturaInput.setText(donut[selectID - 1].getCobertura());
 			recheioInput.setText(donut[selectID - 1].getRecheio());
 			tamanhoInput.setText(donut[selectID - 1].getTamanho());
@@ -174,6 +161,18 @@ public class MainGUI extends JFrame implements ManagerInterface {
 		}
 	}
 
+	//auxiliary methods
+	private void showValuesOfArray() {
+		System.out.println("---------------------------------------------------------");
+		for (int i = 0; i < donut.length - 1; i++) {
+
+			System.out.println("ID: " + donut[i].getId() + "\nNome: " + donut[i].getNome() + "\nCobertura: "
+					+ donut[i].getCobertura() + "\nRecheio: " + donut[i].getRecheio() + "\nPreco: "
+					+ donut[i].getPreco() + "\nTamanho do array: " + donut.length + "\n");
+		}
+		System.out.println("---------------------------------------------------------\n");
+
+	}
 	private void clearInputs() {
 		nomeInput.setText("");
 		coberturaInput.setText("");
@@ -182,6 +181,27 @@ public class MainGUI extends JFrame implements ManagerInterface {
 		precoInput.setText("");
 		nomeInput.requestFocus();
 		donutTable.clearSelection();
+	}
+	public void assignID() {
+		for (int i = 0; i < donut.length - 1; i++) {
+			donut[i].setId(i);
+		}
+
+	}
+	public void setInputOnArray(int id) {
+
+		donut[id].setNome(nomeInput.getText().trim());
+		donut[id].setCobertura(coberturaInput.getText().trim());
+		donut[id].setRecheio(recheioInput.getText().trim());
+		donut[id].setTamanho(tamanhoInput.getText().trim());
+		donut[id].setPreco(precoInput.getText().trim());
+	}
+	public void drawUpdate(int id) {
+		donutTable.setValueAt(donut[id].getNome(), donutTable.getSelectedRow(), 0);
+		donutTable.setValueAt(donut[id].getCobertura(), donutTable.getSelectedRow(), 1);
+		donutTable.setValueAt(donut[id].getRecheio(), donutTable.getSelectedRow(), 2);
+		donutTable.setValueAt(donut[id].getTamanho(), donutTable.getSelectedRow(), 3);
+		donutTable.setValueAt(donut[id].getPreco(), donutTable.getSelectedRow(), 4);
 	}
 
 	/**
@@ -201,6 +221,8 @@ public class MainGUI extends JFrame implements ManagerInterface {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		
+		
 		// Atribuição dos botões de add
 		JButton addButton = new JButton("Adicionar");
 		addButton.addActionListener(new ActionListener() {
@@ -233,10 +255,31 @@ public class MainGUI extends JFrame implements ManagerInterface {
 
 			}
 		});
+		
 		upButton.setActionCommand("Atualizar");
 		upButton.setBounds(412, 418, 92, 21);
 		contentPane.add(upButton);
 
+
+		// metodo que vai chamar o atualizar
+		idSelector.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent e) {
+
+				if ((int) idSelector.getValue() > 0) {
+					returnObject((int) idSelector.getValue());
+					donutTable.setRowSelectionInterval((int) idSelector.getValue() - 1,
+							(int) idSelector.getValue() - 1);
+				} else {
+					donutTable.clearSelection();
+				}
+
+			}
+
+		});
+
+		idSelector.setModel(new SpinnerNumberModel(0, 0, 0, 1));
+		idSelector.setBounds(378, 403, 35, 35);
+		contentPane.add(idSelector);
 		// Criação dos paineis e etiquetas
 
 		// titulos
@@ -354,25 +397,6 @@ public class MainGUI extends JFrame implements ManagerInterface {
 		pecoPanel.add(precoInput);
 		idSelector.setToolTipText("Entre com o ID");
 
-		// metodo que vai chamar o atualizar
-		idSelector.addChangeListener(new ChangeListener() {
-			public void stateChanged(ChangeEvent e) {
-
-				if ((int) idSelector.getValue() > 0) {
-					returnObject((int) idSelector.getValue());
-					donutTable.setRowSelectionInterval((int) idSelector.getValue() - 1,
-							(int) idSelector.getValue() - 1);
-				} else {
-					donutTable.clearSelection();
-				}
-
-			}
-
-		});
-
-		idSelector.setModel(new SpinnerNumberModel(0, 0, 0, 1));
-		idSelector.setBounds(378, 403, 35, 35);
-		contentPane.add(idSelector);
 
 		JPanel ID = new JPanel();
 		ID.setLayout(null);
