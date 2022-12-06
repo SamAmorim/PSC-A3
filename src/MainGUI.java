@@ -58,8 +58,8 @@ public class MainGUI extends JFrame implements ManagerInterface {
 		});
 	}
 
-	//metodos principais
-	
+	// metodos principais
+
 	// metodo de inserir objeto um a um e atribuir id
 	@Override
 	public void insertObject() {
@@ -94,6 +94,7 @@ public class MainGUI extends JFrame implements ManagerInterface {
 		idSelector.setModel(new SpinnerNumberModel(0, 0, donut.length - 1, 1));
 
 	}
+
 	// metodo de remover objeto por id
 	@Override
 	public void removeObject(int selectID) {
@@ -132,19 +133,25 @@ public class MainGUI extends JFrame implements ManagerInterface {
 
 		} else {
 			JOptionPane.showMessageDialog(contentPane, "não existe objeto com id 0", getTitle(), selectID, null);
+
 		}
 	}
+
 	// metodo de atualizar um objeto por id
 	@Override
 	public void updateObject(int selectID) {
+		if (selectID > 0) {
+			setInputOnArray(selectID - 1);
+			drawUpdate(selectID - 1);
+			showValuesOfArray();
+			clearInputs();
 
-		setInputOnArray(selectID - 1);
-		drawUpdate(selectID - 1);
-		showValuesOfArray();
-		clearInputs();
-		
-		idSelector.setValue(0);
+			idSelector.setValue(0);
+		} else {
+			JOptionPane.showMessageDialog(contentPane, "não existe objeto com id 0", getTitle(), selectID, null);
+		}
 	}
+
 	// retornar todas as caracteristicas de um objeto por id
 	@Override
 	public void returnObject(int selectID) {
@@ -162,9 +169,6 @@ public class MainGUI extends JFrame implements ManagerInterface {
 		}
 	}
 
-
-	
-	
 	private void showValuesOfArray() {
 		System.out.println("---------------------------------------------------------");
 		for (int i = 0; i < donut.length - 1; i++) {
@@ -173,7 +177,6 @@ public class MainGUI extends JFrame implements ManagerInterface {
 					+ donut[i].getCobertura() + "\nRecheio: " + donut[i].getRecheio() + "\nPreco: "
 					+ donut[i].getPreco() + "\nTamanho do array: " + donut.length + "\n");
 		}
-		System.out.println("---------------------------------------------------------\n");
 
 	}
 
